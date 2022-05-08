@@ -1,0 +1,8 @@
+tutorials/
+*/Listings
+*/Objects
+
+*.pdf
+*.uvopt
+*.uvproj
+*.uvgui.*
