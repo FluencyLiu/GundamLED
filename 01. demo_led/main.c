@@ -9,15 +9,15 @@ void port_init(void)
    P3 = 0xFF;
 }
 
-void Delay10ms(unsigned int c)                //@11.0592MHz
+void delay(unsigned int c)
 {
     unsigned char a,b;
 
     for(c;c>0;c--)
     {
-        for(b=38;b>0;b--)
+        for(b=100;b>0;b--)
         {
-            for(a=130;a>0;a--) {}
+            for(a=100;a>0;a--) {}
         }
     }
 }
@@ -27,8 +27,8 @@ void main(void){
 
     while(1)
     {
-        led1=0; Delay10ms(100);
-        led1=1; Delay10ms(100);
+        led1=0; delay(100);
+        led1=1; delay(100);
     }
 
 }

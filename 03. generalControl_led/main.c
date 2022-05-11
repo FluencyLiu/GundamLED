@@ -43,11 +43,14 @@ int num_mode = 5;
 
 void port_init(void)
 {
-   // P3M1=0xfc;
+    // P3 IO mode set
     P3M1=0xf0;
     P3M0=0x00;
+    // P3 pull-up resistor
     P3PU=0x0c;
+    // P3 init
     P3 = 0xFF;
+    // INT1 set
     IT1 = 1;
     EX1 = 1;
     EA = 1;
@@ -66,9 +69,9 @@ void delay(unsigned int c)
 }
 
 void INT1_Routine (void) interrupt 2 {
+    // delay a period to avoid jitter
     delay(5);
     if (control==0) mode = (mode+1)%num_mode;
-    // mode = (mode+1)%num_mode;
 }
 
 void main(void){
