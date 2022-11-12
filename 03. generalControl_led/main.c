@@ -32,7 +32,6 @@ bit  fire_io = 0;
 long fire_cycle = 20000;
 long fire_stat = 20000;
 
-bit  propulsion_io = 0;
 unsigned int propulsion_stat = 0;
 bit  lighter = 1;
 unsigned int period_idx = 0;
