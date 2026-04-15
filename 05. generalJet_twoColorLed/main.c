@@ -40,7 +40,7 @@ sbit jet0=P3^0;
 sbit jet1=P3^1;
 sbit control=P3^3;
 
-unsigned int stb = 0;
+volatile unsigned int stb = 0;
 
 bit lighter = 1;
 bit full = 0;
@@ -51,8 +51,8 @@ unsigned int stage_cycle = 8;
 unsigned int stage_change = 6;
 unsigned int jet_cycle[8] = {300,200,300,200,300,200,400,300};
 
-volatile int mode = 0;
-int num_mode = 3;
+volatile unsigned char mode = 0;
+const unsigned char num_mode = 3;
 
 void port_init(void)
 {
@@ -106,6 +106,10 @@ void main() {
             EX1 = 1;
             jet0 = 1;
             jet1 = 0;
+        } else {
+            // Defensive fallback: re-enable interrupt and reset mode
+            mode = 0;
+            EX1 = 1;
         }
         
         

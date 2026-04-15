@@ -26,7 +26,7 @@ sbit jet=P3^1; // jet
 sbit gun=P3^0; // fire
 sbit control=P3^3;
 
-unsigned int stb = 0;
+volatile unsigned int stb = 0;
 
 bit lighter = 1;
 unsigned int stage_idx = 0;
@@ -35,8 +35,8 @@ unsigned int jet_stat = 0;
 unsigned int stage_cycle = 8;
 unsigned int jet_cycle[8] = {300,200,300,200,300,200,400,300};
 
-volatile int mode = 0;
-int num_mode = 3;
+volatile unsigned char mode = 0;
+const unsigned char num_mode = 3;
 
 void port_init(void)
 {
@@ -88,6 +88,10 @@ void main() {
         } else if (CHECKMODE(mode, 2)) {
             EX1 = 1;
             jet = 0;
+        } else {
+            // Defensive fallback: re-enable interrupt and reset mode
+            mode = 0;
+            EX1 = 1;
         }
         
         

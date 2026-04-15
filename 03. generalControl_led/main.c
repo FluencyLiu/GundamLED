@@ -37,8 +37,8 @@ bit  lighter = 1;
 unsigned int period_idx = 0;
 int propulsion_cycle = 404;
 
-volatile int mode = 0;
-int num_mode = 5;
+volatile unsigned char mode = 0;
+const unsigned char num_mode = 5;
 
 void port_init(void)
 {
@@ -98,6 +98,11 @@ void main(void){
             EX1 = 1;
             led1=0;
             led2=0;
+        } else {
+            // Defensive fallback: re-enable interrupt and reset mode
+            // in case of unexpected value (e.g. from torn read)
+            mode = 0;
+            EX1 = 1;
         }
     }
 
